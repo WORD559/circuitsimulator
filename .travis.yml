@@ -5,4 +5,4 @@ install:
  - pip install -r requirements.txt
 script:
  - nosetests -v --with-coverage test/
- - CODECLIMATE_REPO_TOKEN=<CODECLIMATE_TOKEN> codeclimate-test-reporter
+ - CODECLIMATE_REPO_TOKEN=122f63a6ca762e3a290e6c2472602c7644490e94b1f77448e6ddc79df0d0d272 codeclimate-test-reporter
