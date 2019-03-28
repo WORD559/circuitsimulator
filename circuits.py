@@ -3,9 +3,9 @@ import sympy
 from Components import *
 
 class ComponentManager(object):
-    def __init__(self, decimal_places=8):
+    def __init__(self, sig_figs=8):
         self.components = {}
-        self.DP = 8
+        self.SF = sig_figs
 
     def _add_component(self, component):
         if component.id not in self.components:
@@ -125,6 +125,8 @@ def solve(start_component):
 ##    print (loops+nodes)
 ##    print (to_find)
     sols = sympy.solve(loops+nodes, to_find)
+    if not sols:
+        raise ValueError("Could not find solutions. Check circuit is connected.")
     all_sols = sols.copy()
     var_sols = {}
     for key, val in list(sols.items()):
