@@ -51,6 +51,7 @@ def _loop(component, traversed, start, loops):
         if node in traversed: # already been here
             continue
         _loop(node, traversed+[component], start, loops)
+    
 
 def loop_law(start_component):
     """Takes start component and finds all the loops from it."""

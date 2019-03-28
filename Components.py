@@ -71,7 +71,7 @@ class Resistor(Component):
                 "R": symround(self.R, self.parent.SF)}
 
     def __repr__(self):
-        return __name__+".Resistor(id="+str(self.id)+",R="+str(self.R)+")"
+        return "<"+__name__+".Resistor(id='"+str(self.id)+"',R="+str(self.R)+")>"
 
 class Battery(Component):
     def __init__(self, id, parent, V):
@@ -109,8 +109,13 @@ class Battery(Component):
                 "I":symround(self._I.subs(solutions), self.parent.SF),
                 "R":symround(self.R, self.parent.SF),}
 
+    def __repr__(self):
+        direction = "normal" if self.direction == 1 else "reversed"
+        return "<"+__name__+".Battery(id='"+str(self.id)+"',V="+str(self.V)+","+direction+")>"
+
 class Wire(Resistor):
-    pass
+    def __repr__(self):
+        return "<"+__name__+".Wire(id='"+str(self.id)+"')>"
 
 class Capacitor(Component):
     def __init__(self, id, parent, C):
@@ -151,4 +156,8 @@ class Capacitor(Component):
     def subs(self, solutions):
         return {"V":symround(self.V.subs(solutions).doit(), self.parent.SF),
                 "I":symround(self.I.subs(solutions).doit(), self.parent.SF),
-                "R":symround(self.R, self.parent.SF),}
+                "R":symround(self.R, self.parent.SF),
+                "Q":symround(self.Q, self.parent.SF)}
+
+    def __repr__(self):
+        return "<"+__name__+".Capacitor(id='"+str(self.id)+"',C="+str(self.C)+",V_0="+str(self.V_0)+")>"
