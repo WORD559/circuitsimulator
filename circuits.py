@@ -130,13 +130,18 @@ def solve(start_component):
     for key, val in list(sols.items()):
         if not isinstance(key, sympy.Function):
             var_sols[key] = sols.pop(key)
-    ics = _get_ics(manager)
-    dsols = {}
-    for loop in loops:
-        dsol = sympy.dsolve(loop.subs(var_sols), ics=ics)
-        dsols[dsol.lhs] = dsol.rhs
+    if sols:
+        ics = _get_ics(manager)
+        dsols = {}
+        for loop in loops:
+            dsol = sympy.dsolve(loop.subs(var_sols), ics=ics)
+            dsols[dsol.lhs] = dsol.rhs
 
-    for key, val in all_sols.items():
-        all_sols[key] = val.subs(dsols).doit()
+        for key, val in all_sols.items():
+            all_sols[key] = val.subs(dsols).doit()
+
+    else:
+        for key, val in all_sols.items():
+            all_sols[key] = val.doit()
     
     return all_sols
