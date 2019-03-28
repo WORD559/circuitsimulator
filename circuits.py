@@ -22,13 +22,13 @@ class ComponentManager(object):
             vals.update({component.id: component.subs(sols)})
         return vals
 
-    def new_resistor(self, id):
-        r = Resistor(id, self)
+    def new_resistor(self, id, R=0):
+        r = Resistor(id, self, R)
         self._add_component(r)
         return r
 
-    def new_battery(self, id):
-        v = Battery(id, self)
+    def new_battery(self, id, V=0):
+        v = Battery(id, self, V)
         self._add_component(v)
         return v
 
@@ -37,8 +37,8 @@ class ComponentManager(object):
         self._add_component(w)
         return w
 
-    def new_capacitor(self, id):
-        c = Capacitor(id, self)
+    def new_capacitor(self, id, C=0):
+        c = Capacitor(id, self, C)
         self._add_component(c)
         return c
 
