@@ -33,5 +33,5 @@ class BasicTests(unittest.TestCase):
         r1 = mgr.new_resistor("r1")
         r2 = mgr.new_resistor("r2")
         r1.connect_to(r2)
-        with self.assertRaise(ValueError):
+        with self.assertRaises(ValueError):
             r1.connect_to(r2)
