@@ -67,12 +67,12 @@ def loop_law(start_component):
         loop_eqns.append(sympy.Eq(eqn))
     return loop_eqns
 
-def _node_sum(nodes, opposite):
-    s = 0
-    for node in nodes:
-        if len(opposite) == 1:
-            s += node.I
-    return s
+##def _node_sum(nodes, opposite):
+##    s = 0
+##    for node in nodes:
+##        if len(opposite) == 1:
+##            s += node.I
+##    return s
     
 def node_law(manager):
     node_eqns = []
@@ -80,8 +80,18 @@ def node_law(manager):
         if not component.inputs or not component.outputs:
             node_eqns.append(component.I)
             continue
-        into = _node_sum(component.inputs, component.outputs)
-        outof = _node_sum(component.outputs, component.inputs)
+##        into = _node_sum(component.inputs, component.outputs)
+##        outof = _node_sum(component.outputs, component.inputs)
+        into = 0
+        if len(component.outputs) == 1:
+            for node in component.inputs:
+                if len(node.outputs) == 1:
+                    into += node.I
+        outof = 0
+        if len(component.inputs) == 1:
+            for node in component.outputs:
+                if len(node.inputs) == 1:
+                    outof += node.I
 
         if into != 0:
             node_eqns.append(sympy.Eq(into, component.I))
